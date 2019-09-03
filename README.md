@@ -1,23 +1,26 @@
 # Eilis the Facebook-Chatbot Server
 
 ----
-> This project is mainly developed by Fiscol Wu.
-> This uploaded version is mainly for showcasing only, so i've removed the authentication related code to avoid further use.
+> This project is mainly developed by Fiscol Wu.  
+
+> This uploaded version is mainly for showcasing only.
+
+> Authentication related code has been removed to avoid further use.
 
 ----
 ## Project folder structure：
-**config**：Config files.
-**db**：Firebase CRUD API and Firebase config.
-**fb_routes**：Facebook related entrance(webhook.js).
-**functional**：Main development area, object-oriented function will be separated into Service and Model folder/files, while others using service.js only.
-**node_modules**：Project related NPM packages.
-**public**：Frontend related jquery library and part of testing page's code
-**routes**：Controller, separated into functional.js(API) and view.js(Pages) based on use cases.
-**tool**：Common used tool functions.
-**views**：Webpages.
-**xx_functional**：Previous version/None using codes.
-**app.js**：App entrance, set up with port 5000.
-**package.json**：NPM packages and version.
+📁**config**：Config files.  
+📁**db**：Firebase CRUD API and Firebase config.  
+📁**fb_routes**：Facebook related entrance(webhook.js).  
+📁**functional**：Main development area, object-oriented function will be separated into Service and Model folder/files, while others using service.js only.  
+📁**node_modules**：Project related NPM packages.  
+📁**public**：Frontend related jQuery library and part of testing page's code.  
+📁**routes**：Controller, separated into functional.js(API) and view.js(Pages) based on use cases.  
+📁**tool**：Common used tool functions.  
+📁**views**：Webpages.  
+📁**xx_functional**：Previous version/None using codes.  
+📁**app.js**：App entrance, set up with port 5000.  
+📁**package.json**：NPM packages and version.  
 
 ----
 ## API Development Steps：
