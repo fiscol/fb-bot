@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <script src="../../javascripts/jquery.js"></script>
+    <script src="https://js.tappaysdk.com/tpdirect/v2"></script>
+    <script>
+        TPDirect.setPublishableKey(10431, "XzXuN1SVWk63iXJtY46bImzxSftpDPe7gxSECsGb", 'production');
+        TPDirect.card.createToken("4636703215977904", "12", "18", "337", function (result) {
+            console.log(result);
+            //payByPrimeKey(result.card.prime, "739634502862738", null);
+
+            // $.post(serverPath + "merchant/paybyprime", {
+            //     PrimeKey: result.card.prime
+            // }, function (data) {
+            //     console.log(data);
+            //     $.post(serverPath + "merchant/paybycardtoken", {
+            //         CardKey: data.cardsecret.cardkey,
+            //         CardToken: data.cardsecret.cardtoken
+            //     }, function (data) {
+            //         console.log(data);
+            //     });
+            // });
+            //result example
+            //{clientip: "122.118.22.193", status: 0, card: {prime: "98518f49f95210dc522caf05d593f5e0b1468c0ad9266b099a8294bd5a437d23", lastfour: "1856"}, msg: "Success"}
+        })
+        var payByPrimeKey = function (_PrimeKey, _UserID, _Callback) {
+            $.post("../functional/PayByPrime", {
+                PrimeKey: _PrimeKey,
+                UserID: _UserID
+            }).done(function (data) {
+                console.log(data);
+                if (_Callback != null) {
+                    _Callback(data.cardsecret.cardkey, data.cardsecret.cardtoken);
+                }
+            }).fail(function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            });
+        }
+        var payByCardToken = function (_CardKey, _CardToken) {
+            $.post("../functional/PayByCardToken", {
+                CardKey: _CardKey,
+                CardToken: _CardToken
+            }).done(function (data) {
+                console.log(data);
+            }).fail(function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            });
+        }
+        var refund = function (_RecTradeID, _Amount) {
+            $.post("../functional/Refund", {
+                RecTradeID: _RecTradeID,
+                Amount: _Amount
+            }).done(function (data) {
+                console.log(data);
+            }).fail(function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            });
+        }
+        var getTradeRecord = function () {
+            $.get("../functional/GetTradeRecord").done(function (data) {
+                console.log(data);
+            }).fail(function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            });
+        }
+    </script>
+</body>
+
+</html>

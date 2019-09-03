@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body>
+    <h1>
+        <%= title %>
+    </h1>
+    <input type='file' name='imgfile' accept='image/*' /><br><br>
+    <label>上傳後URL:</label><br>
+    <span id='ImgURL'></span><br>
+    <label>預覽上傳成功圖片:</label><br>
+    <img id='PreviewImg' src=''>
+
+    <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+    <script>
+        $("input[name='imgfile']").on('change', function () {
+            var ImageFormData = new FormData();
+            var PageID = '1415800641813281' // 暫時寫死, 前端必須置換為PageID
+            ImageFormData.append('File', $("input[name='imgfile']")[0].files[0]);
+            ImageFormData.append('PageID', PageID);
+
+            $.ajax({
+                url: 'https://api.eilis-ai.com/functional/UploadImage',
+                type: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                async:true,
+                processData: false, // important
+                contentType: false, // important
+                dataType: 'json',
+                data: ImageFormData,
+                success: function (data) {
+                    // 清空前端File內的檔案
+                    $("input[name='imgfile']").val('');
+                    // 更新資料庫回傳的URL
+                    $('#ImgURL').text(data.Link);
+                    $('#PreviewImg').attr('src', data.Link);
+                },
+                error: function (data) {
+                    // 清空前端File內的檔案
+                    $("input[name='imgfile']").val('');
+                    $('#ImgURL').text("上傳失敗, 原因:" + data.Error);
+                    $('#PreviewImg').attr('src', '');
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body style="font-family:Microsoft JhengHei">
+    <h1>
+        <%= title %>
+    </h1>
+    <div id="SmartPayment" style="display:none">
+        <form id='OncePayForm' name='Pay2go' action='' method='post' enctype='multipart/form-data'>
+            MerchantID:<input type='text' id='MerchantID' name='MerchantID' value=''><br>
+            RespondType:<input type='text' id='RespondType' name='RespondType' value=''><br>
+            CheckValue:<input type='text' id='CheckValue' name='CheckValue' value=''><br>
+            TimeStamp:<input type='text' id='TimeStamp' name='TimeStamp' value=''><br>
+            Version:<input type='text' id='Version' name='Version' value=''><br>
+            MerchantOrderNo:<input type='text' id='MerchantOrderNo' name='MerchantOrderNo' value=''><br>
+            Amt:<input type='text' id='Amt' name='Amt' value=''><br>
+            ItemDesc:<input type='text' id='ItemDesc' name='ItemDesc' value=''><br>
+            Email:<input type='text' id='Email' name='Email' value=''><br>
+            LoginType:<input type='text' id='LoginType' name='LoginType' value=''><br>
+            ReturnURL:<input type='text' id='ReturnURL' name='ReturnURL' value=''><br>
+            <!-- TokenTerm:<input type='text' id='TokenTerm' name='TokenTerm' value=''><br> -->
+            <input id="SubmitFormButton" type="submit" name="submit" value="用智付通支付本期Eilis帳單" />
+        </form>
+    </div>
+    <!--<div id="CancelSmartPayment" style="display:none">
+        <h1>信用卡取消交易授權區塊</h1>
+        <form id='CancelPayForm' action='' method='POST'>
+            MerchantID:<input type='text' id='MerchantID_Cancel' name='MerchantID_' value=''><br>
+            PostData:<input type='text' id='PostData_Cancel' name='PostData_' value=''><br>
+            <input type='submit' value='設定智付通信用卡取消Eilis交易授權'>
+        </form>
+    </div>-->
+    <script src="../../javascripts/jquery.js"></script>
+    <script>
+        // 取得URL Query參數
+        var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1));
+        var sURLVariables = sPageURL.split('&');
+
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+        return true;
+        };
+        // 信用卡一次支付(智付通)
+        $.post("../functional/PayWithSmartPay", {
+            UserID: getUrlParameter("UserID"),
+            Product:getUrlParameter("Product")
+        }).done(function (data) {
+            if(data.Error){
+                alert(data.Error);
+            }
+            else if(data.Message){
+                alert(data.Message);
+            }
+            else{
+                $('#MerchantID').val(data.MerchantID);
+                $('#RespondType').val(data.RespondType);
+                $('#CheckValue').val(data.CheckValue);
+                $('#TimeStamp').val(data.TimeStamp);
+                $('#Version').val(data.Version);
+                $('#MerchantOrderNo').val(data.MerchantOrderNo);
+                $('#Amt').val(data.Amt);
+                $('#ItemDesc').val(data.ItemDesc);
+                $('#Email').val(data.Email);
+                $('#LoginType').val(data.LoginType);
+                $('#ReturnURL').val(data.ReturnURL);
+                // $('#TokenTerm').val(data.TokenTerm);
+                $('#OncePayForm').attr('action', data.SubmitURL);
+                $('#SubmitFormButton').click();
+            }
+        }).fail(function (xhr, textStatus, errorThrown) {
+            alert(xhr.responseText);
+        });
+
+        // 信用卡取消授權
+        // $.post("../functional/CancelWithSmartPay", {
+        //     UserID: "739634502862738"
+        // }).done(function (data) {
+        //     $('#MerchantID_Cancel').val(data.MerchantID);
+        //     $('#PostData_Cancel').val(data.PostData);
+        //     $('#CancelPayForm').attr('action', data.SubmitURL);
+        //     $('#CancelSmartPayment').css('display','block');
+        // }).fail(function (xhr, textStatus, errorThrown) {
+        //     alert(xhr.responseText);
+        // });
+    </script>
+</body>
+</html>

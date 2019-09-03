@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+
+<body style="font-family:Microsoft JhengHei">
+    <h1>
+        <%= title %>
+    </h1>
+    <div id="SmartPaymentPeriod" style="display:none">
+        <h1>Eilis信用卡定期定額付款服務</h1>
+        <form id='PeriodPayForm' action='' method='POST'>
+            <span style="display:none">MerchantID:</span><input type='text' id='MerchantID_' name='MerchantID_' value='' style="display:none"><br>
+            <span style="display:none">PostData:</span><input type='text' id='PostData_' name='PostData_' value=''  style="display:none"><br>
+            <input id='PeriodPaySubmitButton' type='submit' value='設定智付通定期定額支付Eilis帳單'>
+        </form>
+    </div>
+    <!--<div id="CancelSmartPayment" style="display:none">
+        <h1>信用卡取消交易授權區塊</h1>
+        <form id='CancelPayForm' action='' method='POST'>
+            MerchantID:<input type='text' id='MerchantID_Cancel' name='MerchantID_' value=''><br>
+            PostData:<input type='text' id='PostData_Cancel' name='PostData_' value=''><br>
+            <input type='submit' value='設定智付通信用卡取消Eilis交易授權'>
+        </form>
+    </div>-->
+    <script src="../../javascripts/jquery.js"></script>
+    <script>
+        // 取得URL Query參數
+        var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1));
+        var sURLVariables = sPageURL.split('&');
+
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+        return true;
+        };
+
+        // 信用卡定期定額支付(智付通)
+        $.post("../functional/PayWithSmartPayPeriod", {
+            UserID: getUrlParameter("UserID")
+        }).done(function (data) {
+            if(data.Error){
+                alert(data.Error);
+            }
+            else if(data.Message){
+                alert(data.Message);
+            }
+            $('#MerchantID_').val(data.MerchantID);
+            $('#PostData_').val(data.PostData);
+            $('#PeriodPayForm').attr('action', data.SubmitURL);
+            $('#PeriodPaySubmitButton').click();
+        }).fail(function (xhr, textStatus, errorThrown) {
+            alert(xhr.responseText);
+        });
+
+        // 信用卡取消授權
+        // $.post("../functional/CancelWithSmartPay", {
+        //     UserID: "739634502862738"
+        // }).done(function (data) {
+        //     $('#MerchantID_Cancel').val(data.MerchantID);
+        //     $('#PostData_Cancel').val(data.PostData);
+        //     $('#CancelPayForm').attr('action', data.SubmitURL);
+        //     $('#CancelSmartPayment').css('display','block');
+        // }).fail(function (xhr, textStatus, errorThrown) {
+        //     alert(xhr.responseText);
+        // });
+    </script>
+</body>
+</html>

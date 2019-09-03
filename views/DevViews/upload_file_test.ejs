@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>
+    <%= title %>
+  </title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1>
+    <%= title %>
+  </h1>
+  <div>
+    <form action="/functional/UploadImage" method="post" enctype="multipart/form-data">
+      <label for="imgfile">圖片上傳:</label>
+      <input type="file" name="imgfile" id="imgfile" accept="image/*" />
+      <input id="imgPageID" type="text" name="PageName" value="TC DEMO SHOW" style="display:none" readonly>
+      <input type="submit" name="submit" value="submit" />
+    </form>
+    <form action="/functional/UploadVideo" method="post" enctype="multipart/form-data">
+      <label for="videofile">影片上傳:</label>
+      <input type="file" name="videofile" id="videofile" accept="video/mp4,video/x-m4v,video/*" />
+      <input id="videoPageID" type="text" name="PageName" value="TC DEMO SHOW" style="display:none" readonly>
+      <input type="submit" name="submit" value="submit" />
+    </form>
+    <form action="/functional/BroadcastImage" method="post" enctype="multipart/form-data">
+      <label for="imgfile">圖片廣播:</label>
+      <input type="file" name="imgfile" id="imgfile" accept="image/*" />
+      <input id="imgPageID" type="text" name="PageName" value="個性君" style="display:none" readonly>
+      <input type="submit" name="submit" value="submit" />
+    </form>
+  </div>
+</body>
+</html>
