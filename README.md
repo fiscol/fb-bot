@@ -1,11 +1,9 @@
 # Eilis the Facebook-Chatbot Server
 
 ----
-> This project is mainly developed by Fiscol Wu.  
+This project is mainly developed by [Fiscol Wu](https://github.com/fiscol).  
 
-> This uploaded version is mainly for showcasing only.
-
-> Authentication related code has been removed to avoid further use.
+Authentication related code has been removed to avoid further use.
 
 ----
 ## Project folder structure：
