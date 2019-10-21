@@ -1,11 +1,9 @@
 # Eilis the Facebook-Chatbot Server
 
-----
 This project is mainly developed by [Fiscol Wu](https://github.com/fiscol).  
 
 Authentication related code has been removed to avoid further use.
 
-----
 ## Project folder structure：
 📁**config**：Config files.  
 📁**db**：Firebase CRUD API and Firebase config.  
@@ -20,7 +18,6 @@ Authentication related code has been removed to avoid further use.
 📁**app.js**：App entrance, set up with port 5000.  
 📁**package.json**：NPM packages and version.  
 
-----
 ## API Development Steps：
 1. Go to routes/functional.js, set up the new API URL path in the related functional area.
 2. Go to functional folder, add a new functional sub folder with Service and Model folder/files.
@@ -35,6 +32,6 @@ We use the npm [FB](https://github.com/node-facebook/facebook-node-sdk) to call 
 
 [Node-Schedule](https://github.com/node-schedule/node-schedule) is the npm tool we use, to do the scheduled setting with records in our Firebase Database.
 
-----
+
 ## API Documents：
 [Our Backend developed API Document Link](https://paper.dropbox.com/doc/EILISSERVER-SIDE-API-FdKysdZ2ZVUwJgb0G0AGq)
